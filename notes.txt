@@ -1,0 +1,58 @@
+- Initialize the project with brownie
+- FIll in the contract
+- Make a brownie-config.yaml and fill it in with dependencies from chainlink
+- Make a deploy.py
+
+Make a utils.py:
+- implement a get_acccount() that reads from accounts[0] if the network is development, reads from the yaml config. otherwise
+- fill in the .env and the yaml config. with the private key and Infura key
+
+In deploy.py:
+- import the contract
+- implement a deploy_fund_me()
+- deploy Fundme to ganache and to Rinkeby
+- verify the contract (fill in the etehrscan key in the .env) and check on Etherscan
+
+Mock the contract for the price feed
+- change the contract to pass the address of the price feed in the ctor (and store it in an attribute of the contract)
+- pass the address to the constructor from deploy.py, setting the address in yaml config.
+- make a mock MockV3Aggregator.sol under ./test, taking it from chainlink-mix on Github
+- import the mock contract from deploy.py and deploy it when the network is development
+- move the deploy_mock() to utils.py
+- support Ganache GUI and Kovan
+
+Make a fund_and_withdraw.py to interact with the contract
+- define a fund() function
+- from the fund() function get the last deployed FundMe contract and the account
+- copy and paste get_entrance_fee() from github
+- define a withdraw() method
+- from main() of this file, call fund() and withdraw in sequence
+
+Do unit-tests
+- make a file tests/test_fund_me.py
+- make a test_can_fund_and_withdraw()
+-- get the account and deploy the contract
+-- get its entrance fee
+-- call fund() on the contract for the amount of the entrance fee
+-- wait for 1 block
+-- check that the account has actually funded the contract fot an amount equal to the entrance fee
+-- withdraw the same amount
+-- wait for 1 block
+-- verify that now the amount funded for the account is 0
+- Make a test that only the owner can withdraw
+-- skip the test if not on a local network with pytest.skip()
+-- use accounts.add() to generate a new random account
+-- test that withdrawing with the new account fails
+
+
+- add the option -k for pytest to the debugging configurations
+- make unit tests more verbose with -v
+
+Mainnet forking
+- In the brownie config file add a netowrk for the fork from mainnet, and fill in the address for ETH/USD price feed
+- make sure that get_account() fetches the first account of 10 ten preset in the forked network, when using the forked network
+- verify you can deploy and test on the forked blockchain
+
+- upload to github
+
+-try out solidity debugger under ganache

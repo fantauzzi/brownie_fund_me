@@ -1,0 +1,88 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    
+    /*{
+              "name": "Brownie: Current File",
+              "type": "python",
+              "request": "launch",
+              "program": "${file}",
+              "console": "integratedTerminal",
+              "justMyCode": true
+          }*/
+    {
+      "name": "Brownie: run deploy.js",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["run", "scripts/deploy.js"]
+    },
+    {
+      "name": "Brownie: run deploy.js in a network",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["run", "scripts/deploy.js", "--network", "${input:network}"]
+    },
+
+    {
+      "name": "Brownie: run current file",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["run", "${file}"]
+    },
+    {
+      "name": "Brownie: run current file in a network",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["run", "${file}", "--network", "${input:network}"]
+    },
+    {
+      "name": "Brownie: test",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["test", "-v"]
+    },
+    {
+      "name": "Brownie: test in network",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["test", "-v", "--network", "${input:network}"]
+    },
+    {
+      "name": "Brownie: test -k <test_function>",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/fanta/.local/virtualenv/python3.10/bin/brownie",
+      "console": "integratedTerminal",
+      "args": ["test", "-v", "-k", "${input:function}"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "network",
+      "type": "pickString",
+      "description": "network",
+      "options": ["development", "ganache-local", "mainnet-fork-dev", "kovan", "rinkeby"],
+      "default": "development"
+    },
+    {
+      "id": "function",
+      "type": "promptString",
+      "description": "Test function"
+    }
+  ]
+}
